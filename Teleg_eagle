@@ -1,0 +1,31 @@
+
+API_TOKEN = '7634510991:AAFzOwDVW4E7rG8K0BTNgH_ASlIL05XS-Eg'
+
+
+logging.basicConfig(level=logging.INFO)
+
+
+bot = Bot(token=API_TOKEN)
+dp = Dispatcher(bot)
+
+
+@dp.message_handler(commands=['start', 'help'])
+async def send_welcome(message: types.Message):
+
+    await message.reply(f"Assalomu aleykum!\n{message.from_user.full_name}")
+
+
+
+@dp.message_handler()
+async def echo(message: types.Message):
+    if message.text == 'salom':
+        await message.reply(f'Assalomu alaykum {message.from_user.full_name}')
+    else:
+        await message.answer('Sizga nima kerak')
+
+
+    await message.answer(message.text)
+
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
